@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Migração de Planos TIM</title>
+  <meta name="description" content="Página simples, moderna e responsiva para migração de planos." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tim-blue:#002776; /* Base TIM */
+      --tim-blue-alt:#003b99; /* Hover/gradient deeper */
+      --tim-blue-soft:#0b3e91; /* Soft background accent */
+      --tim-red:#e50019; /* Action / emphasis */
+      --tim-red-dark:#c40015;
+      --gray-50:#f5f7fa;
+      --gray-100:#e9eef3;
+      --gray-200:#d8dde3;
+      --gray-600:#5b6573;
+      --gray-800:#2a313a;
+      --radius-sm:4px;
+      --radius-md:8px;
+      --radius-lg:18px;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.08);
+      --shadow-md:0 4px 18px -2px rgba(0,30,80,.25);
+      --grad-hero:linear-gradient(135deg,var(--tim-blue) 0%, var(--tim-blue-alt) 60%, #0d5adb 100%);
+      font-size:16px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif; color:var(--gray-800); background:var(--gray-50); -webkit-font-smoothing:antialiased; }
+    img { max-width:100%; display:block; }
+    a { color:var(--tim-blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+
+    /* Layout */
+    header { background:var(--tim-blue); color:#fff; position:sticky; top:0; z-index:30; box-shadow:var(--shadow-sm); }
+    .nav-bar { max-width:1180px; margin:0 auto; display:flex; align-items:center; gap:2rem; padding:.95rem 1.25rem; }
+    .brand { display:flex; align-items:center; gap:.65rem; font-weight:600; letter-spacing:.5px; font-size:1.05rem; }
+    .brand-dot { width:10px; height:10px; border-radius:50%; background:var(--tim-red); display:inline-block; box-shadow:0 0 0 4px rgba(229,0,25,.25); }
+    nav { margin-left:auto; display:flex; gap:1.25rem; flex-wrap:wrap; }
+    nav a { font-size:.9rem; font-weight:500; color:#fff; padding:.4rem .6rem; border-radius:var(--radius-sm); position:relative; }
+    nav a:focus-visible { outline:2px solid var(--tim-red); outline-offset:2px; }
+    nav a:hover { background:rgba(255,255,255,.12); }
+
+    .hero { background:var(--grad-hero); color:#fff; position:relative; overflow:hidden; }
+    .hero::after { content:""; position:absolute; inset:0; background:radial-gradient(circle at 85% 25%,rgba(255,255,255,.25),transparent 55%); mix-blend-mode:overlay; pointer-events:none; }
+    .hero-inner { max-width:1180px; margin:0 auto; padding: clamp(3rem, 6vw, 5rem) 1.25rem 3.2rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:3rem 4rem; align-items:center; }
+    .hero-content h1 { margin:0 0 1rem; font-size:clamp(2.1rem,5.3vw,3.2rem); line-height:1.05; letter-spacing:-.5px; font-weight:700; }
+    .hero-content p { margin:0 0 1.6rem; font-size:clamp(1rem,1.4vw,1.18rem); max-width:520px; opacity:.92; }
+    .pill { display:inline-flex; align-items:center; gap:.5rem; background:rgba(255,255,255,.12); padding:.5rem .85rem; border-radius:999px; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; font-weight:600; margin-bottom:1rem; backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.25); }
+    .cta-row { display:flex; flex-wrap:wrap; gap:.85rem; }
+    .btn { --bg:var(--tim-red); --bg-hover:var(--tim-red-dark); cursor:pointer; border:none; background:var(--bg); color:#fff; font-weight:600; padding:.85rem 1.35rem; font-size:.95rem; line-height:1.1; border-radius:var(--radius-md); box-shadow:0 4px 14px -4px rgba(229,0,25,.5); display:inline-flex; align-items:center; gap:.55rem; position:relative; transition:.28s cubic-bezier(.4,.2,.2,1) background, .28s box-shadow, .28s transform; }
+    .btn:hover { background:var(--bg-hover); box-shadow:0 6px 20px -6px rgba(229,0,25,.6); transform:translateY(-2px); }
+    .btn.secondary { --bg:rgba(255,255,255,.14); --bg-hover:rgba(255,255,255,.28); backdrop-filter:blur(6px); box-shadow:none; }
+    .btn.secondary:hover { box-shadow:0 4px 20px -4px rgba(0,0,0,.35); }
+
+    .mockup-card { position:relative; background:#fff; padding:1.4rem 1.35rem 1.6rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); min-height:340px; display:flex; flex-direction:column; gap:1rem; overflow:hidden; isolation:isolate; }
+    .mockup-card::before { content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(0,39,118,.85),rgba(0,39,118,.92)); opacity:0; transition:.5s; z-index:-1; }
+    .mockup-card:hover::before { opacity:1; }
+    .mockup-card:hover { color:#fff; }
+    .mockup-card h3 { margin:.2rem 0 .6rem; font-size:1.05rem; letter-spacing:.5px; text-transform:uppercase; font-weight:600; color:var(--tim-blue); }
+    .mockup-card:hover h3 { color:#fff; }
+    .badge { background:var(--gray-100); border-radius:999px; padding:.35rem .7rem; font-size:.65rem; letter-spacing:.08em; font-weight:600; color:var(--tim-blue); display:inline-block; }
+    .mockup-card:hover .badge { background:rgba(255,255,255,.25); color:#fff; }
+
+    .section { max-width:1180px; margin:0 auto; padding:3.5rem 1.25rem; }
+    .section-header { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.4rem; }
+    .section-header h2 { margin:0; font-size:clamp(1.55rem,3.4vw,2.3rem); line-height:1.15; letter-spacing:-.5px; color:var(--tim-blue); }
+    .section-header p { margin:0; max-width:680px; font-size:1rem; color:var(--gray-600); }
+
+    .grid { display:grid; gap:1.7rem; }
+    .grid.cols-3 { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+
+    .plans { background:#fff; border:1px solid var(--gray-100); border-radius:var(--radius-lg); padding:1.35rem 1.2rem 1.5rem; display:flex; flex-direction:column; gap:.8rem; position:relative; box-shadow:var(--shadow-sm); }
+    .plans.highlight { border:2px solid var(--tim-red); }
+    .plans h3 { margin:.2rem 0 .35rem; font-size:1.15rem; color:var(--tim-blue); }
+    .price { font-size:1.85rem; font-weight:700; letter-spacing:-1px; color:var(--tim-blue); display:flex; align-items:flex-end; gap:.35rem; }
+    .price small { font-size:.7rem; font-weight:500; letter-spacing:0; color:var(--gray-600); }
+    ul.features { list-style:none; padding:0; margin:.3rem 0 .6rem; display:flex; flex-direction:column; gap:.4rem; font-size:.8rem; }
+    ul.features li { display:flex; gap:.45rem; align-items:flex-start; }
+    ul.features li::before { content:""; width:14px; height:14px; border-radius:4px; background:var(--tim-blue); margin-top:2px; flex-shrink:0; box-shadow:0 0 0 3px rgba(0,39,118,.2); }
+
+    .form-wrapper { background:linear-gradient(135deg,var(--tim-blue) 0%, var(--tim-blue-soft) 100%); color:#fff; border-radius:var(--radius-lg); padding:2.2rem 1.75rem 2.6rem; display:grid; gap:2rem; box-shadow:var(--shadow-md); }
+    .form-wrapper h3 { margin:0 0 .25rem; font-size:1.55rem; }
+    form { display:grid; gap:1.15rem; }
+    .field { display:flex; flex-direction:column; gap:.45rem; }
+    label { font-size:.75rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+    input, select { font:inherit; padding:.85rem .9rem; border:1px solid rgba(255,255,255,.4); border-radius:var(--radius-md); background:rgba(255,255,255,.12); color:#fff; backdrop-filter:blur(4px); transition:.25s; }
+    input::placeholder { color:rgba(255,255,255,.55); }
+    input:focus, select:focus { outline:2px solid var(--tim-red); border-color:var(--tim-red); background:rgba(255,255,255,.18); }
+    .legal { font-size:.55rem; line-height:1.3; opacity:.75; }
+
+    footer { background:#04162d; color:#98a2b3; font-size:.7rem; padding:2.2rem 1.25rem 3rem; margin-top:3rem; }
+    .footer-inner { max-width:1180px; margin:0 auto; display:grid; gap:1.5rem; justify-items:start; }
+    .footer-brand { font-weight:600; color:#fff; letter-spacing:.5px; display:flex; align-items:center; gap:.5rem; }
+    .footer-brand span { font-size:.7rem; font-weight:500; color:var(--gray-200); }
+
+    /* Utilities */
+    .center { text-align:center; }
+    .fade-in { animation:fade .8s ease-out both; }
+    @keyframes fade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+    /* Responsive adjustments */
+    @media (min-width:860px) {
+      .hero-inner { grid-template-columns: 1.08fr .92fr; }
+      .form-wrapper { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:620px) {
+      nav { display:none; }
+      .hero-content h1 { font-size:2.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="brand" aria-label="TIM">TIM<span class="brand-dot" aria-hidden="true"></span></div>
+      <nav aria-label="Primária">
+        <a href="#vantagens">Vantagens</a>
+        <a href="#planos">Planos</a>
+        <a href="#migrar">Migrar</a>
+        <a href="#duvidas">Dúvidas</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content fade-in">
+        <div class="pill">Migração Simplificada</div>
+        <h1>Migre seu plano TIM em minutos</h1>
+        <p>Uma experiência rápida, transparente e segura para você evoluir seu plano e aproveitar ainda mais benefícios no seu dia a dia.</p>
+        <div class="cta-row">
+          <button class="btn" onclick="document.getElementById('migrar').scrollIntoView({behavior:'smooth'})">Quero migrar agora</button>
+          <button class="btn secondary" onclick="document.getElementById('planos').scrollIntoView({behavior:'smooth'})">Ver planos</button>
+        </div>
+      </div>
+      <div class="mockup-card fade-in" style="animation-delay:.15s">
+        <span class="badge">Preview</span>
+        <h3>Novo Painel</h3>
+        <p style="margin:0; font-size:.85rem; line-height:1.45;">Visual limpo para acompanhar cada etapa da sua migração e status em tempo real.</p>
+        <ul style="list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.6rem; font-size:.72rem; font-weight:500; letter-spacing:.5px;">
+          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:var(--tim-red);box-shadow:0 0 0 3px rgba(229,0,25,.35);"></span>Solicitação enviada</li>
+          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:#ffbb00;box-shadow:0 0 0 3px rgba(255,187,0,.35);"></span>Em análise</li>
+          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:#00c853;box-shadow:0 0 0 3px rgba(0,200,83,.35);"></span>Concluído</li>
+        </ul>
+        <div style="margin-top:auto;font-size:.55rem; letter-spacing:.08em; opacity:.65; text-transform:uppercase;">Interface demonstrativa</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vantagens" class="section">
+    <div class="section-header">
+      <h2>Por que migrar?</h2>
+      <p>Evolua sem burocracia: mais dados, benefícios digitais e atendimento otimizado em um fluxo inteligente.</p>
+    </div>
+    <div class="grid cols-3">
+      <div class="mockup-card" style="min-height:220px;">
+        <span class="badge">Benefício</span>
+        <h3>Mais Internet</h3>
+        <p style="font-size:.85rem; line-height:1.4;">Planos com franquias ampliadas e performance otimizada para streaming, games e apps do dia a dia.</p>
+      </div>
+      <div class="mockup-card" style="min-height:220px;">
+        <span class="badge">Controle</span>
+        <h3>Acompanhamento</h3>
+        <p style="font-size:.85rem; line-height:1.4;">Portal de status claro para cada etapa da migração, notificações e timeline de eventos.</p>
+      </div>
+      <div class="mockup-card" style="min-height:220px;">
+        <span class="badge">Suporte</span>
+        <h3>Atendimento</h3>
+        <p style="font-size:.85rem; line-height:1.4;">Processo assistido e humanizado, com suporte inteligente quando você realmente precisa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="planos" class="section" style="padding-top:0;">
+    <div class="section-header">
+      <h2>Planos em Destaque</h2>
+      <p>Escolha um plano que combina com seu uso e conclua a migração rapidamente.</p>
+    </div>
+    <div class="grid cols-3" style="align-items:stretch;">
+      <div class="plans">
+        <h3>Essencial</h3>
+        <div class="price">R$ 49<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
+        <ul class="features">
+          <li>10GB de internet</li>
+          <li>Apps ilimitados selecionados</li>
+          <li>Suporte digital</li>
+        </ul>
+        <button class="btn secondary" style="width:100%;" onclick="selectPlan('Essencial')">Selecionar</button>
+      </div>
+      <div class="plans highlight">
+        <h3>Avançado</h3>
+        <div class="price">R$ 69<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
+        <ul class="features">
+          <li>25GB de internet</li>
+          <li>Apps ilimitados + streaming</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <button class="btn" style="width:100%;" onclick="selectPlan('Avançado')">Selecionar</button>
+      </div>
+      <div class="plans">
+        <h3>Premium</h3>
+        <div class="price">R$ 99<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
+        <ul class="features">
+          <li>50GB de internet</li>
+          <li>Apps ilimitados + streaming + games</li>
+            <li>Atendimento exclusivo</li>
+        </ul>
+        <button class="btn secondary" style="width:100%;" onclick="selectPlan('Premium')">Selecionar</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="migrar" class="section">
+    <div class="form-wrapper">
+      <div>
+        <h3>Solicitar migração</h3>
+        <p style="margin:0 0 1.2rem; font-size:.9rem; line-height:1.4; opacity:.9;">Preencha seus dados e escolha o plano. Entraremos em contato confirmando a mudança e prazo de ativação.</p>
+        <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.65rem; font-size:.7rem; letter-spacing:.05em; font-weight:500;">
+          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:var(--tim-red);border-radius:2px;box-shadow:0 0 0 3px rgba(229,0,25,.35);"></span>Dados criptografados</li>
+          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:#00c853;border-radius:2px;box-shadow:0 0 0 3px rgba(0,200,83,.35);"></span>Confirmação em até 24h úteis</li>
+          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:#ffbb00;border-radius:2px;box-shadow:0 0 0 3px rgba(255,187,0,.35);"></span>Sem interrupção de serviço</li>
+        </ul>
+      </div>
+      <form onsubmit="event.preventDefault(); submitForm();">
+        <div class="field">
+          <label for="nome">Nome completo</label>
+          <input id="nome" name="nome" placeholder="Seu nome" required />
+        </div>
+        <div class="field">
+          <label for="cpf">CPF</label>
+          <input id="cpf" name="cpf" placeholder="000.000.000-00" pattern="\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}" required />
+        </div>
+        <div class="field">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" name="telefone" placeholder="(00) 90000-0000" required />
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" name="email" type="email" placeholder="voce@exemplo.com" required />
+        </div>
+        <div class="field">
+          <label for="plano">Plano escolhido</label>
+          <select id="plano" name="plano" required>
+            <option value="" disabled selected>Selecione</option>
+            <option>Essencial</option>
+            <option>Avançado</option>
+            <option>Premium</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="portabilidade">Portabilidade?</label>
+          <select id="portabilidade" name="portabilidade" required>
+            <option value="" disabled selected>Selecione</option>
+            <option>Sim</option>
+            <option>Não</option>
+          </select>
+        </div>
+        <div class="field" style="margin-top:.25rem;">
+          <button class="btn" type="submit" style="width:100%; justify-content:center;">Enviar solicitação</button>
+        </div>
+        <p class="legal">Ao prosseguir você autoriza o tratamento dos dados conforme a política de privacidade. Esta é uma interface demonstrativa.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="duvidas" class="section" style="padding-top:0;">
+    <div class="section-header">
+      <h2>Dúvidas frequentes</h2>
+      <p>Algumas respostas rápidas sobre o processo de migração.</p>
+    </div>
+    <details style="background:#fff; border:1px solid var(--gray-100); padding:1rem 1.1rem; border-radius:var(--radius-md); margin-bottom:.75rem;">
+      <summary style="cursor:pointer; font-weight:600; color:var(--tim-blue);">Quanto tempo leva a migração?</summary>
+      <div style="margin-top:.6rem; font-size:.85rem; line-height:1.45; color:var(--gray-600);">Normalmente a confirmação é enviada em até 24h úteis e a ativação ocorre logo em seguida sem interrupção do serviço.</div>
+    </details>
+    <details style="background:#fff; border:1px solid var(--gray-100); padding:1rem 1.1rem; border-radius:var(--radius-md); margin-bottom:.75rem;">
+      <summary style="cursor:pointer; font-weight:600; color:var(--tim-blue);">Perco meus benefícios atuais?</summary>
+      <div style="margin-top:.6rem; font-size:.85rem; line-height:1.45; color:var(--gray-600);">Benefícios não compatíveis são informados antes da confirmação. Você sempre visualiza o comparativo final.</div>
+    </details>
+    <details style="background:#fff; border:1px solid var(--gray-100); padding:1rem 1.1rem; border-radius:var(--radius-md); margin-bottom:.75rem;">
+      <summary style="cursor:pointer; font-weight:600; color:var(--tim-blue);">Há custo adicional?</summary>
+      <div style="margin-top:.6rem; font-size:.85rem; line-height:1.45; color:var(--gray-600);">A migração em si não possui tarifa. O novo valor mensal é exibido de forma transparente antes do envio.</div>
+    </details>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">TIM <span>Interface demonstrativa</span></div>
+      <div>© <span id="year"></span> TIM - Conteúdo ilustrativo para prototipagem. Marcas e logotipos são propriedade de seus respectivos donos.</div>
+    </div>
+  </footer>
+
+  <script>
+    function selectPlan(plan){
+      const select = document.getElementById('plano');
+      [...select.options].forEach(o=>{ if(o.value===plan) select.value=plan; });
+      document.getElementById('migrar').scrollIntoView({behavior:'smooth'});
+    }
+    function submitForm(){
+      const form = document.querySelector('form');
+      const data = Object.fromEntries(new FormData(form).entries());
+      console.log('Form submit', data);
+      alert('Solicitação enviada! (demo)');
+      form.reset();
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
