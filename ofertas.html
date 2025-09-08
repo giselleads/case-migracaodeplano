@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oferta TIM Controle</title>
+  <meta name="description" content="Página de oferta TIM Controle destacando melhor plano." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./assets/tim.ico" type="image/vnd.microsoft.icon">
+  <style>
+    /* Garante que o alvo do scroll não fique escondido atrás do header sticky */
+    #beneficios, #regulamento {
+      scroll-margin-top: 80px;
+    }
+  .benefits-panels{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:.85rem;}
+    :root { /* Mesmas tokens de identidade do index */
+      scroll-behavior: smooth;
+      --tim-blue:#002776; --tim-blue-alt:#003b99; --tim-blue-soft:#0b3e91; --tim-red:#e50019; --tim-red-dark:#c40015;
+      --gray-50:#f5f7fa; --gray-75:#eef2f7; --gray-100:#e9eef3; --gray-200:#d8dde3; --gray-400:#9aa3b1; --gray-600:#5b6573; --gray-800:#2a313a;
+      --radius-sm:4px; --radius-md:8px; --radius-lg:18px; --shadow-sm:0 2px 4px rgba(0,0,0,.08); --shadow-md:0 4px 18px -2px rgba(0,30,80,.25);
+      --grad-hero:linear-gradient(135deg,var(--tim-blue) 0%, var(--tim-blue-alt) 60%, #0d5adb 100%);
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif;color:var(--gray-800);background:var(--gray-50);-webkit-font-smoothing:antialiased;}
+    a{color:var(--tim-blue);text-decoration:none;} a:hover{text-decoration:underline;}
+    header{background:var(--tim-blue);color:#fff;position:sticky;top:0;z-index:30;box-shadow:var(--shadow-sm);} 
+    .nav-bar{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:2rem;padding:.95rem 1.25rem;}
+    .brand{display:flex;align-items:center;gap:.65rem;font-weight:600;letter-spacing:.5px;font-size:1.05rem;}
+    .brand-dot{width:10px;height:10px;border-radius:50%;background:var(--tim-red);display:inline-block;box-shadow:0 0 0 4px rgba(229,0,25,.25);} 
+    nav{margin-left:auto;display:flex;gap:1.25rem;flex-wrap:wrap;} nav a{font-size:.9rem;font-weight:500;color:#fff;padding:.4rem .6rem;border-radius:var(--radius-sm);} nav a:hover{background:rgba(255,255,255,.12);} 
+
+    .hero{background:var(--grad-hero);color:#fff;position:relative;overflow:hidden;}
+    .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 25%,rgba(255,255,255,.25),transparent 55%);mix-blend-mode:overlay;pointer-events:none;}
+    .hero-inner{max-width:1180px;margin:0 auto;padding:clamp(2.8rem,5vw,4rem) 1.25rem 2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem 4rem;align-items:flex-start;}
+
+    .greeting h1{margin:0 0 .65rem;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.05;letter-spacing:-.5px;font-weight:700;}
+    .greeting p{margin:0 0 1.2rem;font-size:clamp(.95rem,1.3vw,1.1rem);max-width:560px;opacity:.92;}
+    .pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.12);padding:.5rem .85rem;border-radius:999px;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:1rem;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);}    
+
+    /* Card Oferta */
+  /* Aumentado: adicionados max-width e padding para ampliar área perceptível */
+  /* Wrapper ainda menor (segunda redução) para diferenciação perceptível */
+  .offer-card-wrapper{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin:0 auto;max-width:300px;width:100%;padding:.3rem 0 .45rem;}
+  /* Card ampliado (terceira expansão + responsivo) */
+  .offer-emphasis{background:#fff;position:relative;border-radius:26px;padding:1.35rem 1.05rem 1.55rem;max-width:300px;width:100%;min-height:460px;box-shadow:0 10px 30px -14px rgba(0,30,80,.45);display:flex;flex-direction:column;justify-content:flex-start;overflow:hidden;}
+  .offer-emphasis::after{content:"";position:absolute;inset:0;pointer-events:none;}
+    .offer-emphasis::before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#021d4c,#012f77 55%,#034cae);opacity:.94;z-index:0;}
+    .offer-emphasis>*{position:relative;z-index:2;}
+    .ribbon{align-self:center;background:#35b400;color:#fff;font-size:.6rem;font-weight:700;padding:.35rem .8rem;border-radius:999px;text-transform:uppercase;letter-spacing:.09em;box-shadow:0 4px 14px -4px rgba(35,180,0,.55);margin-bottom:.4rem;}
+  .plan-title{font-size:clamp(.62rem,.8vw,.72rem);font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:#a4ffb7;display:flex;flex-direction:column;align-items:center;gap:.4rem;margin:0 0 .75rem;text-align:center;}
+  .plan-gb{font-size:clamp(2.55rem,5.4vw,3.75rem);font-weight:730;letter-spacing:-2px;color:#23ff32;line-height:1;margin:0 0 .55rem;text-align:center;text-shadow:0 0 6px rgba(35,255,50,.3);}    
+  .bonus-line{font-size:clamp(.65rem,.9vw,.78rem);font-weight:600;color:#b9e4ff;background:rgba(255,255,255,.14);padding:.55rem .75rem;border-radius:12px;text-align:center;margin:0 0 1.05rem;backdrop-filter:blur(4px);}
+  .apps{display:flex;justify-content:center;flex-wrap:wrap;gap:.6rem;margin:0 0 1rem;}
+    .apps span{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:.5rem;font-weight:600;color:#fff;backdrop-filter:blur(4px);box-shadow:0 2px 8px -4px rgba(0,0,0,.3);} 
+  .apps span svg{width:18px;height:18px;display:block;}
+  /* Brand color overrides */
+  .apps span.whatsapp{background:#25D366;color:#fff;}
+  .apps span.instagram{background:radial-gradient(circle at 35% 90%, #fec564, #feda7e 10%, #fa7e1e 30%, #d62976 50%, #962fbf 70%, #4f5bd5 90%);color:#fff;}
+  .apps span.deezer{background:#121216;color:#fff;}
+  .feature-block{background:linear-gradient(180deg,#062358,#041c45);padding:1.05rem .85rem 1rem;border-radius:18px;display:flex;flex-direction:column;gap:.65rem;box-shadow:0 6px 22px -12px rgba(0,30,80,.45);margin-top:auto;}
+    .feature-block h4{margin:0;font-size:.55rem;letter-spacing:.09em;font-weight:600;color:#b3d8ff;text-transform:uppercase;text-align:center;}
+  .unlimited{font-size:clamp(.6rem,.75vw,.72rem);font-weight:640;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.08;text-align:center;letter-spacing:.045em;}
+    .price-box{margin:.55rem 0 1rem;text-align:center;}
+  .price-box .value{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:740;letter-spacing:-1px;color:#fff;display:flex;justify-content:center;align-items:flex-end;gap:.25rem;}
+    .price-box small{display:block;font-size:.55rem;font-weight:500;color:#b1c7e3;margin-top:.25rem;}
+  .btn{--bg:var(--tim-red);--bg-hover:var(--tim-red-dark);cursor:pointer;border:none;background:var(--bg);color:#fff;font-weight:600;padding:.7rem .95rem;font-size:clamp(.78rem,.9vw,.85rem);line-height:1.05;border-radius:14px;box-shadow:0 4px 14px -6px rgba(229,0,25,.5);display:inline-flex;align-items:center;justify-content:center;gap:.45rem;position:relative;transition:.25s cubic-bezier(.4,.2,.2,1) background,.25s box-shadow,.25s transform;width:100%;}
+  .btn:hover{background:var(--bg-hover);box-shadow:0 6px 18px -8px rgba(229,0,25,.55);transform:translateY(-2px);}    
+  .btn:active{transform:translateY(-1px);}    
+
+    @media (min-width:1000px){
+  /* Desktop mantendo proporção compacta */
+  .offer-card-wrapper{padding:.6rem 0 .7rem;}
+  .offer-emphasis{padding:1.5rem 1.25rem 1.8rem;}
+      .offer-emphasis{padding:3rem 3rem 3.4rem;}
+      .feature-block{flex-direction:column;}
+    }
+
+    /* Seções inferiores */
+    main{max-width:1180px;margin:0 auto;padding:2.8rem 1.25rem 3.5rem;display:grid;gap:2.8rem;}
+    .info-panels{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+    .panel{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius-lg);padding:1.25rem 1.15rem 1.4rem;display:flex;flex-direction:column;gap:.75rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+    .panel h3{margin:0;font-size:1rem;color:var(--tim-blue);}
+    .panel p{margin:0;font-size:.8rem;line-height:1.45;color:var(--gray-600);}    
+
+    details.accordion{background:#fff;border:1px solid var(--gray-100);padding:1rem 1.15rem;border-radius:var(--radius-md);font-size:.8rem;box-shadow:var(--shadow-sm);}
+    details.accordion+details.accordion{margin-top:.75rem;}
+    details.accordion summary{cursor:pointer;font-weight:600;color:var(--tim-blue);list-style:none;}
+    details.accordion[open]{border-color:var(--tim-red);}    
+
+    footer{background:#04162d;color:#98a2b3;font-size:.65rem;padding:2.2rem 1.25rem 3rem;margin-top:2rem;}
+    .footer-inner{max-width:1180px;margin:0 auto;display:grid;gap:1.3rem;justify-items:start;}
+    .footer-brand{font-weight:600;color:#fff;letter-spacing:.5px;display:flex;align-items:center;gap:.5rem;}
+    .footer-brand span{font-size:.65rem;font-weight:500;color:var(--gray-200);}    
+
+    @media (max-width:760px){
+      nav{display:none;}
+      .offer-emphasis{margin:0 auto;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="brand">TIM <span class="brand-dot" aria-hidden="true"></span></div>
+      <nav aria-label="Principal">
+        <a href="index.html">Início</a>
+        <a href="#beneficios">Mais benefícios</a>
+        <a href="#regulamento">Regulamento</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+  <div class="hero-inner">
+      <div class="offer-card-wrapper">
+        <article class="offer-emphasis" aria-labelledby="titulo-oferta">
+          <div class="ribbon">MELHOR OFERTA</div>
+          <p class="plan-title" id="titulo-oferta">TIM CONTROLE<br>LIGAÇÕES ILIMITADAS</p>
+          <div class="plan-gb" aria-label="23 GigaBytes">23GB</div>
+          <div class="bonus-line">3GB + 20GB de bônus por 12 meses</div>
+          <div class="apps" aria-label="Apps inclusos">
+            <span class="whatsapp" aria-label="WhatsApp" title="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.5 11.5c0 5-4 9-9 9a9 9 0 0 1-4.1-1l-4.4 1.2 1.2-4.3A9 9 0 1 1 20.5 11.5Z" stroke="currentColor"/>
+                <path d="M16.2 14.2c-.3.8-1.7 1-2.3.9-.6-.2-1.3-.4-2.2-1.1-.9-.6-1.5-1.5-1.7-1.8-.2-.3-.4-.8-.1-1.1.3-.3.4-.5.5-.8.1-.3 0-.6 0-.8 0-.2-.5-1.4-.7-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.2 2.3 3.5 5.6 4.2 3.3.7 3.3.5 3.9.5.6 0 1.9-.7 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3-.3-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.2-.2.3-.6.8-.6 1Z" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span class="instagram" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/>
+                <circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span class="deezer" aria-label="Deezer" title="Deezer">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="13" width="2" height="6" rx="1" fill="#ff0000"/>
+                <rect x="7" y="11" width="2" height="8" rx="1" fill="#ffed00"/>
+                <rect x="11" y="9" width="2" height="10" rx="1" fill="#00d95f"/>
+                <rect x="15" y="7" width="2" height="12" rx="1" fill="#00c8ff"/>
+                <rect x="19" y="5" width="2" height="14" rx="1" fill="#ff00ff"/>
+              </svg>
+            </span>
+          </div>
+          <div class="feature-block">
+            <div class="unlimited"><span>WhatsApp + Ligações + SMS</span><span style="font-size:.7rem;margin-top:.15rem;letter-spacing:.05em;">TUDO ILIMITADO</span></div>
+            <div class="price-box">
+              <div class="value"><span style="font-size:1rem;align-self:flex-start;margin-top:.15rem;">R$</span>30<span style="font-size:1rem;">,99</span></div>
+              <small>na fatura<br/>sem permanência mínima</small>
+            </div>
+            <button class="btn" type="button" onclick="contratar()">Contratar agora</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="beneficios" aria-label="Benefícios">
+      <details class="accordion" open>
+        <summary>Benefícios</summary>
+        <div class="benefits-panels">
+          <div class="panel">
+            <h3>Internet Turbinada</h3>
+            <p>23GB para navegar, assistir e jogar com estabilidade. Bônus distribuído nos primeiros 12 meses para você aproveitar ao máximo.</p>
+          </div>
+          <div class="panel">
+            <h3>Apps Ilimitados</h3>
+            <p>Uso de WhatsApp para mensagens, voz e vídeo sem descontar da franquia principal, além de outros apps parceiros promocionais.</p>
+          </div>
+          <div class="panel">
+            <h3>Controle Total</h3>
+            <p>Acompanhe consumo, histórico e renovação diretamente no app Minha TIM com alertas inteligentes.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="regulamento" aria-label="Mais detalhes">
+      <details class="accordion" open>
+        <summary>Mais benefícios</summary>
+        <div style="margin-top:.65rem;line-height:1.5;">
+          <ul style="margin:0;padding-left:1.1rem;font-size:.75rem;display:flex;flex-direction:column;gap:.4rem;">
+            <li>Acúmulo de dados não utilizados para o mês seguinte dentro da validade promocional.</li>
+            <li>Roaming nacional incluso nas áreas de cobertura TIM.</li>
+            <li>Suporte digital com resposta média em até 5 minutos via app.</li>
+          </ul>
+        </div>
+      </details>
+      <details class="accordion">
+        <summary>Regulamento da oferta TIM Controle</summary>
+        <div style="margin-top:.65rem;line-height:1.5;font-size:.7rem;color:var(--gray-600);">
+          Franquia total de 23GB composta por 3GB base + 20GB de bônus válidos por 12 meses. Após o período, a franquia retorna à configuração base vigente. Aplicam-se políticas de uso justo. Oferta sujeita à disponibilidade regional e análise cadastral. Consulte cobertura e condições completas em canais oficiais TIM. Valores em Reais (R$). Imagens e referências meramente ilustrativas.
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">TIM <span>Interface demonstrativa</span></div>
+      <div>© <span id="year"></span> TIM - Página ilustrativa de oferta. Marcas e logotipos pertencem aos seus respectivos donos.</div>
+    </div>
+  </footer>
+
+  <script>
+    function qs(name){ const p=new URLSearchParams(window.location.search); return p.get(name); }
+    const nome = qs('nome');
+    if(nome){ document.getElementById('greetingTitle').textContent = `Olá ${nome}, conheça o novo TIM Controle`; }
+    function contratar(){
+  // Redireciona para o formulário passando parâmetros básicos do plano
+  window.location.href = 'form.html?plano=' + encodeURIComponent('TIM Controle') + '&gb=23&preco=30,99';
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Suaviza o scroll para navegadores que não suportam scroll-behavior via CSS
+    document.querySelectorAll('nav a[href^="#"]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var targetId = this.getAttribute('href').slice(1);
+        var target = document.getElementById(targetId);
+        if(target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          // Se for o link do regulamento, abre o details correto
+          if(targetId === 'regulamento') {
+            // Procura o details com summary "Regulamento da oferta TIM Controle"
+            var detailsList = target.querySelectorAll('details.accordion');
+            detailsList.forEach(function(details) {
+              var summary = details.querySelector('summary');
+              if(summary && summary.textContent.trim().toLowerCase().includes('regulamento da oferta tim controle')) {
+                details.open = true;
+              }
+            });
+          } else if(targetId === 'beneficios') {
+            var benDetails = target.querySelector('details.accordion');
+            if(benDetails){ benDetails.open = true; }
+            // Também garante que a seção "Mais benefícios" (dentro de #regulamento) seja exibida caso o usuário espere esse conteúdo
+            var maisBeneficiosDetails = document.querySelector('#regulamento details.accordion:first-of-type');
+            if(maisBeneficiosDetails){
+              maisBeneficiosDetails.open = true;
+              // Faz segundo scroll suave após pequeno delay para alinhar visualmente
+              setTimeout(function(){ maisBeneficiosDetails.scrollIntoView({behavior:'smooth', block:'start'}); }, 180);
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

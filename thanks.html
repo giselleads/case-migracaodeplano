@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Obrigado - Migração TIM</title>
+  <meta name="description" content="Página de confirmação da solicitação de migração/contratação TIM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./assets/tim.ico" type="image/vnd.microsoft.icon">
+  <style>
+    :root { /* Reutiliza tokens principais */
+      --tim-blue:#002776; --tim-blue-alt:#003b99; --tim-red:#e50019; --tim-red-dark:#c40015; --tim-blue-soft:#0b3e91;
+      --gray-50:#f5f7fa; --gray-100:#e9eef3; --gray-200:#d8dde3; --gray-300:#b9c4cf; --gray-600:#5b6573; --gray-800:#2a313a;
+      --surface:#0d2232; --surface-alt:#132d42; --radius-md:10px; --radius-lg:20px; --shadow-md:0 4px 22px -2px rgba(0,30,80,.4);
+      --grad-bg:radial-gradient(circle at 30% 20%, rgba(0,118,255,.18), transparent 55%),linear-gradient(135deg,#041c32 0%, #062a46 60%, #07395f 100%);
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif;background:#03141f;color:#fff;-webkit-font-smoothing:antialiased;}
+    header{background:var(--tim-blue);color:#fff;position:sticky;top:0;z-index:40;box-shadow:0 2px 4px rgba(0,0,0,.2);}    
+    .nav-bar{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:2rem;padding:.9rem 1.25rem;}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:600;letter-spacing:.5px;font-size:1.05rem;}
+    .brand-dot{width:10px;height:10px;border-radius:50%;background:var(--tim-red);box-shadow:0 0 0 4px rgba(229,0,25,.35);}  
+    nav{margin-left:auto;display:flex;gap:1.1rem;}
+    nav a{color:#fff;font-size:.8rem;font-weight:500;padding:.45rem .65rem;border-radius:6px;text-decoration:none;}
+    nav a:hover{background:rgba(255,255,255,.15);}  
+
+    main{min-height:calc(100dvh - 180px);display:flex;align-items:center;justify-content:center;padding:3.2rem 1.25rem 4rem;background:var(--grad-bg);position:relative;overflow:hidden;}
+    main::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 80%,rgba(255,255,255,.08),transparent 60%);pointer-events:none;mix-blend-mode:overlay;}
+    .container{width:100%;max-width:880px;margin:0 auto;display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start;position:relative;z-index:2;}
+
+    .card{background:var(--surface);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:2rem 1.8rem 2.25rem;display:flex;flex-direction:column;gap:1.2rem;box-shadow:0 0 0 1px rgba(255,255,255,.05), var(--shadow-md);position:relative;overflow:hidden;}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 15%,rgba(255,255,255,.12),transparent 60%);mix-blend-mode:overlay;pointer-events:none;}
+    h1{margin:0;font-size:clamp(1.85rem,4.2vw,2.85rem);letter-spacing:-1px;line-height:1.05;font-weight:700;}
+    .lead{margin:0;font-size:.95rem;line-height:1.45;color:var(--gray-200);max-width:520px;}
+    .highlight{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.12);padding:.55rem .95rem;border-radius:999px;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);}
+
+    .summary{background:linear-gradient(140deg,#0f2537 0%,#091d2c 60%,#041621 100%);border:1px solid rgba(255,255,255,.1);padding:1.4rem 1.2rem 1.6rem;border-radius:20px;display:flex;flex-direction:column;gap:1rem;position:relative;overflow:hidden;}
+  .summary::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.12),transparent 55%);mix-blend-mode:overlay;pointer-events:none;}
+    .summary h2{margin:0;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--gray-300);}
+    .plan-line{font-size:2.1rem;font-weight:700;color:#3fe26c;display:flex;align-items:flex-end;gap:.4rem;letter-spacing:-1px;}
+    .plan-line small{font-size:.65rem;font-weight:600;letter-spacing:.12em;color:var(--gray-300);text-transform:uppercase;position:relative;top:-2px;}
+    .price{font-size:1.95rem;font-weight:700;letter-spacing:-1px;margin:0;display:flex;align-items:flex-end;gap:.35rem;}
+    .price span{font-size:1rem;}
+    .mini{font-size:.55rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--gray-300);}
+    ul.benefits{list-style:none;margin:.2rem 0 0;padding:0;display:flex;flex-direction:column;gap:.45rem;font-size:.7rem;font-weight:500;color:var(--gray-200);letter-spacing:.05em;}
+    ul.benefits li{display:flex;align-items:center;gap:.5rem;}
+    ul.benefits li::before{content:"";width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,#1b72ff,#26a4ff);box-shadow:0 0 0 3px rgba(0,118,255,.25);flex-shrink:0;}
+
+    .actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:.4rem;}
+    .btn{--bg:var(--tim-red);--bg-hover:var(--tim-red-dark);cursor:pointer;border:none;background:var(--bg);color:#fff;font-weight:600;padding:.9rem 1.35rem;font-size:.82rem;line-height:1.1;border-radius:14px;box-shadow:0 4px 16px -4px rgba(229,0,25,.55);display:inline-flex;align-items:center;gap:.55rem;transition:.28s;letter-spacing:.05em;}
+    .btn:hover{background:var(--bg-hover);box-shadow:0 6px 20px -6px rgba(229,0,25,.6);transform:translateY(-2px);}    
+    .btn.secondary{--bg:rgba(255,255,255,.14);--bg-hover:rgba(255,255,255,.25);color:#fff;box-shadow:none;backdrop-filter:blur(6px);}
+    .btn.secondary:hover{box-shadow:0 4px 18px -4px rgba(0,0,0,.45);}    
+
+    footer{background:#04162d;color:#98a2b3;font-size:.68rem;padding:2.2rem 1.25rem 3rem;margin-top:0;}
+    .footer-inner{max-width:1180px;margin:0 auto;display:grid;gap:1.3rem;}
+    .footer-brand{font-weight:600;color:#fff;letter-spacing:.5px;display:flex;align-items:center;gap:.5rem;}
+    .footer-brand span{font-size:.65rem;font-weight:500;color:var(--gray-200);}    
+
+    @media (max-width:860px){
+      .container{grid-template-columns:1fr;}
+      main{padding:2.6rem 1.2rem 3.5rem;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="brand">TIM <span class="brand-dot" aria-hidden="true"></span></div>
+      <nav aria-label="Primária">
+        <a href="index.html">Início</a>
+        <a href="ofertas.html">Ofertas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="card" aria-labelledby="obrigadoTit">
+        <span class="highlight">Solicitação Recebida</span>
+        <h1 id="obrigadoTit">Obrigado! Sua solicitação foi registrada.</h1>
+        <p class="lead">Enviamos seus dados com segurança e em breve você receberá a confirmação por e-mail ou SMS. O novo plano será ativado sem interrupção do serviço.</p>
+        <div class="actions">
+          <a class="btn" href="./index.html">Voltar ao início</a>
+          <a class="btn secondary" href="ofertas.html">Ver outras ofertas</a>
+        </div>
+      </section>
+      <aside class="summary" aria-labelledby="resumoPlanoTit">
+        <h2 id="resumoPlanoTit">Resumo do plano</h2>
+        <div class="plan-line"><span id="sumGB">--GB</span> <small>Internet</small></div>
+        <p class="price" id="sumPrice">R$ --,<span>--</span></p>
+        <div class="mini" id="sumPlanoNome">Plano</div>
+        <ul class="benefits" id="sumBenefits">
+          <li>Apps ilimitados principais</li>
+          <li>Ligações ilimitadas</li>
+          <li>Bônus promocional 12 meses</li>
+        </ul>
+        <div class="mini" id="sumVencimento">Vencimento: --</div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">TIM <span>Interface demonstrativa</span></div>
+      <div>© <span id="year"></span> TIM - Confirmação ilustrativa. Marcas e logotipos são propriedade de seus respectivos donos.</div>
+    </div>
+  </footer>
+
+  <script>
+    function qs(name){const p=new URLSearchParams(window.location.search);return p.get(name);}    
+    const gb = qs('gb');
+    const preco = qs('preco');
+    const plano = qs('plano');
+    const venc = qs('venc');
+
+    if(gb) document.getElementById('sumGB').textContent = gb;
+    if(plano) document.getElementById('sumPlanoNome').textContent = plano;
+    if(preco){
+      const [inteira,decimal] = preco.split(',');
+      document.getElementById('sumPrice').innerHTML = `R$ ${inteira},<span>${decimal||'00'}</span>`;
+    }
+    if(venc) document.getElementById('sumVencimento').textContent = 'Vencimento: dia ' + venc;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./assets/tim.ico" type="image/vnd.microsoft.icon">
   <style>
     :root {
       --tim-blue:#002776; /* Base TIM */
@@ -49,6 +50,12 @@
     .hero-inner { max-width:1180px; margin:0 auto; padding: clamp(3rem, 6vw, 5rem) 1.25rem 3.2rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:3rem 4rem; align-items:center; }
     .hero-content h1 { margin:0 0 1rem; font-size:clamp(2.1rem,5.3vw,3.2rem); line-height:1.05; letter-spacing:-.5px; font-weight:700; }
     .hero-content p { margin:0 0 1.6rem; font-size:clamp(1rem,1.4vw,1.18rem); max-width:520px; opacity:.92; }
+  .hero-inline-form { display:grid; gap:.75rem; margin:0 0 1rem; max-width:520px; }
+  .hero-inline-form .fields { display:flex; flex-direction:column; gap:.65rem; }
+  .hero-inline-form label { font-size:.6rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; display:block; margin:0 0 .25rem; }
+  .hero-inline-form input { width:100%; font:inherit; padding:.7rem .75rem; border:1px solid rgba(255,255,255,.55); border-radius:8px; background:rgba(255,255,255,.15); color:#fff; backdrop-filter:blur(4px); transition:.25s; }
+  .hero-inline-form input::placeholder { color:rgba(255,255,255,.65); }
+  .hero-inline-form input:focus { outline:2px solid var(--tim-red); border-color:var(--tim-red); background:rgba(255,255,255,.22); }
     .pill { display:inline-flex; align-items:center; gap:.5rem; background:rgba(255,255,255,.12); padding:.5rem .85rem; border-radius:999px; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; font-weight:600; margin-bottom:1rem; backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.25); }
     .cta-row { display:flex; flex-wrap:wrap; gap:.85rem; }
     .btn { --bg:var(--tim-red); --bg-hover:var(--tim-red-dark); cursor:pointer; border:none; background:var(--bg); color:#fff; font-weight:600; padding:.85rem 1.35rem; font-size:.95rem; line-height:1.1; border-radius:var(--radius-md); box-shadow:0 4px 14px -4px rgba(229,0,25,.5); display:inline-flex; align-items:center; gap:.55rem; position:relative; transition:.28s cubic-bezier(.4,.2,.2,1) background, .28s box-shadow, .28s transform; }
@@ -64,6 +71,14 @@
     .mockup-card:hover h3 { color:#fff; }
     .badge { background:var(--gray-100); border-radius:999px; padding:.35rem .7rem; font-size:.65rem; letter-spacing:.08em; font-weight:600; color:var(--tim-blue); display:inline-block; }
     .mockup-card:hover .badge { background:rgba(255,255,255,.25); color:#fff; }
+
+    /* Simple hero image wrapper */
+    .hero-image-wrapper { display:flex; align-items:center; justify-content:center; padding:0; }
+    .hero-image-wrapper img { width:100%; max-width:480px; height:auto; border-radius:16px; box-shadow:0 8px 28px -8px rgba(0,30,80,.35); object-fit:cover; }
+    @media (max-width:780px){
+      .hero-image-wrapper { margin-top:1.5rem; }
+      .hero-image-wrapper img { max-width:360px; }
+    }
 
     .section { max-width:1180px; margin:0 auto; padding:3.5rem 1.25rem; }
     .section-header { display:flex; flex-direction:column; gap:.75rem; margin-bottom:2.4rem; }
@@ -119,8 +134,6 @@
       <div class="brand" aria-label="TIM">TIM<span class="brand-dot" aria-hidden="true"></span></div>
       <nav aria-label="Primária">
         <a href="#vantagens">Vantagens</a>
-        <a href="#planos">Planos</a>
-        <a href="#migrar">Migrar</a>
         <a href="#duvidas">Dúvidas</a>
       </nav>
     </div>
@@ -132,21 +145,24 @@
         <div class="pill">Migração Simplificada</div>
         <h1>Migre seu plano TIM em minutos</h1>
         <p>Uma experiência rápida, transparente e segura para você evoluir seu plano e aproveitar ainda mais benefícios no seu dia a dia.</p>
+        <form class="hero-inline-form" onsubmit="event.preventDefault(); document.getElementById('migrar').scrollIntoView({behavior:'smooth'});">
+          <div class="fields">
+            <div>
+              <label for="hero-telefone">Número do Telefone</label>
+              <input id="hero-telefone" name="telefone" placeholder="(00) 90000-0000" inputmode="tel" />
+            </div>
+            <div>
+              <label for="hero-cpf">CPF</label>
+              <input id="hero-cpf" name="cpf" placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" />
+            </div>
+          </div>
+        </form>
         <div class="cta-row">
-          <button class="btn" onclick="document.getElementById('migrar').scrollIntoView({behavior:'smooth'})">Quero migrar agora</button>
-          <button class="btn secondary" onclick="document.getElementById('planos').scrollIntoView({behavior:'smooth'})">Ver planos</button>
+          <a class="btn" href="ofertas.html" style="text-decoration:none;">Conferir Ofertas</a>
         </div>
       </div>
-      <div class="mockup-card fade-in" style="animation-delay:.15s">
-        <span class="badge">Preview</span>
-        <h3>Novo Painel</h3>
-        <p style="margin:0; font-size:.85rem; line-height:1.45;">Visual limpo para acompanhar cada etapa da sua migração e status em tempo real.</p>
-        <ul style="list-style:none; padding:0; margin:1rem 0 0; display:flex; flex-direction:column; gap:.6rem; font-size:.72rem; font-weight:500; letter-spacing:.5px;">
-          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:var(--tim-red);box-shadow:0 0 0 3px rgba(229,0,25,.35);"></span>Solicitação enviada</li>
-          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:#ffbb00;box-shadow:0 0 0 3px rgba(255,187,0,.35);"></span>Em análise</li>
-          <li style="display:flex; align-items:center; gap:.5rem;"><span style="width:9px;height:9px;border-radius:3px;background:#00c853;box-shadow:0 0 0 3px rgba(0,200,83,.35);"></span>Concluído</li>
-        </ul>
-        <div style="margin-top:auto;font-size:.55rem; letter-spacing:.08em; opacity:.65; text-transform:uppercase;">Interface demonstrativa</div>
+      <div class="hero-image-wrapper fade-in" style="animation-delay:.15s">
+        <img src="./assets/iza.png" alt="Imagem destaque" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -172,98 +188,6 @@
         <h3>Atendimento</h3>
         <p style="font-size:.85rem; line-height:1.4;">Processo assistido e humanizado, com suporte inteligente quando você realmente precisa.</p>
       </div>
-    </div>
-  </section>
-
-  <section id="planos" class="section" style="padding-top:0;">
-    <div class="section-header">
-      <h2>Planos em Destaque</h2>
-      <p>Escolha um plano que combina com seu uso e conclua a migração rapidamente.</p>
-    </div>
-    <div class="grid cols-3" style="align-items:stretch;">
-      <div class="plans">
-        <h3>Essencial</h3>
-        <div class="price">R$ 49<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
-        <ul class="features">
-          <li>10GB de internet</li>
-          <li>Apps ilimitados selecionados</li>
-          <li>Suporte digital</li>
-        </ul>
-        <button class="btn secondary" style="width:100%;" onclick="selectPlan('Essencial')">Selecionar</button>
-      </div>
-      <div class="plans highlight">
-        <h3>Avançado</h3>
-        <div class="price">R$ 69<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
-        <ul class="features">
-          <li>25GB de internet</li>
-          <li>Apps ilimitados + streaming</li>
-          <li>Suporte prioritário</li>
-        </ul>
-        <button class="btn" style="width:100%;" onclick="selectPlan('Avançado')">Selecionar</button>
-      </div>
-      <div class="plans">
-        <h3>Premium</h3>
-        <div class="price">R$ 99<span style="font-size:1rem;">,90</span> <small>/mês</small></div>
-        <ul class="features">
-          <li>50GB de internet</li>
-          <li>Apps ilimitados + streaming + games</li>
-            <li>Atendimento exclusivo</li>
-        </ul>
-        <button class="btn secondary" style="width:100%;" onclick="selectPlan('Premium')">Selecionar</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="migrar" class="section">
-    <div class="form-wrapper">
-      <div>
-        <h3>Solicitar migração</h3>
-        <p style="margin:0 0 1.2rem; font-size:.9rem; line-height:1.4; opacity:.9;">Preencha seus dados e escolha o plano. Entraremos em contato confirmando a mudança e prazo de ativação.</p>
-        <ul style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.65rem; font-size:.7rem; letter-spacing:.05em; font-weight:500;">
-          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:var(--tim-red);border-radius:2px;box-shadow:0 0 0 3px rgba(229,0,25,.35);"></span>Dados criptografados</li>
-          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:#00c853;border-radius:2px;box-shadow:0 0 0 3px rgba(0,200,83,.35);"></span>Confirmação em até 24h úteis</li>
-          <li style="display:flex; gap:.5rem; align-items:center;"><span style="width:8px;height:8px;background:#ffbb00;border-radius:2px;box-shadow:0 0 0 3px rgba(255,187,0,.35);"></span>Sem interrupção de serviço</li>
-        </ul>
-      </div>
-      <form onsubmit="event.preventDefault(); submitForm();">
-        <div class="field">
-          <label for="nome">Nome completo</label>
-          <input id="nome" name="nome" placeholder="Seu nome" required />
-        </div>
-        <div class="field">
-          <label for="cpf">CPF</label>
-          <input id="cpf" name="cpf" placeholder="000.000.000-00" pattern="\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}" required />
-        </div>
-        <div class="field">
-          <label for="telefone">Telefone</label>
-          <input id="telefone" name="telefone" placeholder="(00) 90000-0000" required />
-        </div>
-        <div class="field">
-          <label for="email">E-mail</label>
-          <input id="email" name="email" type="email" placeholder="voce@exemplo.com" required />
-        </div>
-        <div class="field">
-          <label for="plano">Plano escolhido</label>
-          <select id="plano" name="plano" required>
-            <option value="" disabled selected>Selecione</option>
-            <option>Essencial</option>
-            <option>Avançado</option>
-            <option>Premium</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="portabilidade">Portabilidade?</label>
-          <select id="portabilidade" name="portabilidade" required>
-            <option value="" disabled selected>Selecione</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
-        </div>
-        <div class="field" style="margin-top:.25rem;">
-          <button class="btn" type="submit" style="width:100%; justify-content:center;">Enviar solicitação</button>
-        </div>
-        <p class="legal">Ao prosseguir você autoriza o tratamento dos dados conforme a política de privacidade. Esta é uma interface demonstrativa.</p>
-      </form>
     </div>
   </section>
 

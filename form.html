@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contratação / Migração de Plano - TIM</title>
+  <meta name="description" content="Formulário de contratação / migração de plano TIM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./assets/tim.ico" type="image/vnd.microsoft.icon">
+  <style>
+    :root {
+      --tim-blue:#002776;
+      --tim-blue-alt:#003b99;
+      --tim-blue-soft:#0b3e91;
+      --tim-red:#e50019;
+      --tim-red-dark:#c40015;
+      --gray-25:#f8fafc;
+      --gray-50:#f5f7fa;
+      --gray-100:#e9eef3;
+      --gray-200:#d8dde3;
+      --gray-300:#b9c4cf;
+      --gray-500:#667180;
+      --gray-600:#5b6573;
+      --gray-700:#424b55;
+      --gray-800:#2a313a;
+      --radius-sm:4px;
+      --radius-md:8px;
+      --radius-lg:18px;
+      --shadow-sm:0 2px 4px rgba(0,0,0,.12);
+      --shadow-md:0 4px 22px -2px rgba(0,30,80,.4);
+      --grad-hero:linear-gradient(135deg,#041c32 0%, #062a46 60%, #07395f 100%);
+      --surface:#0d2232; /* base cards darker */
+      --surface-alt:#132d42;
+      --focus-ring:0 0 0 3px rgba(229,0,25,.55),0 0 0 6px rgba(229,0,25,.25);
+      font-size:16px;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;font-family:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif;color:var(--gray-50);background:#03141f; -webkit-font-smoothing:antialiased;}
+    a{color:var(--tim-blue-soft);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    header{background:var(--tim-blue);color:#fff;position:sticky;top:0;z-index:40;box-shadow:var(--shadow-sm);}    
+    .nav-bar{max-width:1320px;margin:0 auto;display:flex;align-items:center;gap:2rem;padding:.9rem 1.25rem;}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:600;letter-spacing:.5px;font-size:1.05rem;}
+    .brand-dot{width:10px;height:10px;border-radius:50%;background:var(--tim-red);box-shadow:0 0 0 4px rgba(229,0,25,.3);}    
+    nav{margin-left:auto;display:flex;gap:1.1rem;}
+    nav a{color:#fff;font-size:.8rem;font-weight:500;padding:.45rem .65rem;border-radius:6px;}
+    nav a:hover{background:rgba(255,255,255,.15);}    
+
+    main{max-width:1320px;margin:0 auto;padding:2.4rem clamp(.9rem,2.5vw,2rem) 4rem;display:grid;gap:2.4rem;} /* hold the header sections */
+    .breadcrumbs{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem;color:var(--gray-300);font-weight:600;}
+    .breadcrumbs a{color:var(--gray-200);}    
+
+    .layout-grid{display:grid;grid-template-columns:320px 1fr 260px;gap:2.2rem;align-items:start;}
+    @media (max-width:1180px){.layout-grid{grid-template-columns:300px 1fr;}.column-right{grid-column:1/-1;display:flex;flex-direction:column;}}
+    @media (max-width:880px){main{padding:2rem 1.1rem 3rem;}.layout-grid{grid-template-columns:1fr;}}
+
+    h1.page-title{margin:.6rem 0 2rem;font-size:clamp(1.4rem,2.6vw,2rem);letter-spacing:-.5px;line-height:1.15;font-weight:700;color:#fff;}
+
+    .panel{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:1.35rem 1.15rem 1.55rem;position:relative;display:flex;flex-direction:column;gap:1rem;box-shadow:0 0 0 1px rgba(255,255,255,.03), var(--shadow-md);}
+    .panel h2.section-title{margin:.1rem 0 1.1rem;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-300);font-weight:600;position:relative;}
+    .panel h2.section-title::after{content:"";position:absolute;left:0;bottom:-.55rem;width:100%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.2),transparent);}    
+
+    /* Plan card */
+    .plan-card{background:linear-gradient(140deg,#0f2537 0%,#091d2c 55%,#041621 100%);border:1px solid rgba(255,255,255,.08);padding:1.25rem 1.1rem 1.6rem;border-radius:14px;display:flex;flex-direction:column;gap:1.1rem;min-height:320px;position:relative;overflow:hidden;}
+    .plan-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 75% 15%,rgba(255,255,255,.11),transparent 60%);pointer-events:none;mix-blend-mode:overlay;}
+    .plan-capacity{font-size:2.2rem;font-weight:700;color:#3fe26c;letter-spacing:-1px;line-height:.95;display:flex;align-items:flex-end;gap:.4rem;}
+    .plan-capacity small{font-size:.65rem;font-weight:600;letter-spacing:.12em;color:var(--gray-300);text-transform:uppercase;position:relative;top:-2px;}
+    .plan-benefits{list-style:none;margin:.2rem 0 0;padding:0;display:flex;flex-direction:column;gap:.45rem;font-size:.7rem;letter-spacing:.05em;font-weight:500;color:var(--gray-200);}
+    .plan-benefits li{display:flex;align-items:center;gap:.5rem;}
+    .plan-benefits li::before{content:"";width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,#1b72ff,#26a4ff);box-shadow:0 0 0 3px rgba(0,118,255,.25);flex-shrink:0;}
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.15),transparent);margin:.4rem 0 .2rem;}
+    .plan-price{font-size:1.85rem;font-weight:700;letter-spacing:-1px;color:#fff;display:flex;align-items:flex-end;gap:.4rem;}
+    .plan-price .details{display:flex;flex-direction:column;font-size:.55rem;font-weight:500;color:var(--gray-300);letter-spacing:.09em;text-transform:uppercase;margin-left:auto;text-align:right;}
+    .change-plan{align-self:flex-start;font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--gray-200);padding:.45rem .7rem;border-radius:40px;cursor:pointer;backdrop-filter:blur(4px);}
+    .change-plan:hover{background:rgba(255,255,255,.15);}
+
+    /* Form */
+    form{display:flex;flex-direction:column;gap:1.4rem;}
+    fieldset{margin:0;padding:0;border:none;display:flex;flex-direction:column;gap:1rem;}
+    .fields-grid{display:grid;gap:.85rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+    .field{display:flex;flex-direction:column;gap:.35rem;}
+    label{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-300);}    
+    input, select{font:inherit;padding:.85rem .9rem;border:1px solid rgba(255,255,255,.18);border-radius:10px;background:rgba(255,255,255,.05);color:#fff;backdrop-filter:blur(4px);transition:.25s;}
+    input::placeholder{color:rgba(255,255,255,.35);}    
+    input:focus,select:focus{outline:none;box-shadow:var(--focus-ring);border-color:var(--tim-red);}
+    .subsection-title{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--gray-400);margin:1.4rem 0 .25rem;position:relative;}
+    .subsection-title::before{content:"";position:absolute;left:0;top:-.65rem;width:100%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.14),transparent);}    
+
+    /* Right column (due date) */
+    .due-options{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:.55rem;margin:.7rem 0 1rem;}
+    .due-btn{cursor:pointer;display:flex;align-items:center;justify-content:center;padding:.85rem 0;font-size:.75rem;font-weight:600;letter-spacing:.05em;border-radius:10px;background:linear-gradient(145deg,#0d2536,#122c40);border:1px solid rgba(255,255,255,.14);color:var(--gray-200);position:relative;transition:.25s;}
+    .due-btn:hover{background:linear-gradient(145deg,#123348,#1a4056);color:#fff;}
+    .due-btn.active{background:linear-gradient(140deg,#1e6aff,#3db1ff);color:#fff;box-shadow:0 4px 14px -2px rgba(0,118,255,.5);}    
+    .due-btn[data-best="true"].active{background:linear-gradient(140deg,#3fe26c,#1cb84c);box-shadow:0 4px 18px -2px rgba(63,226,108,.55);}    
+    .tip-banner{background:linear-gradient(90deg,#0f3452,#11476d);border:1px solid rgba(255,255,255,.1);padding:.75rem .9rem;border-radius:10px;font-size:.65rem;line-height:1.4;letter-spacing:.05em;font-weight:500;display:flex;gap:.6rem;align-items:flex-start;position:relative;color:var(--gray-200);}    
+    .tip-banner::before{content:"";position:absolute;top:-6px;left:22px;width:12px;height:12px;background:inherit;border:inherit;transform:translateY(-50%) rotate(45deg);clip-path:polygon(0 0,100% 0,100% 100%);}
+    .submit-btn{--bg:var(--gray-50);--bg-hover:#fff;cursor:pointer;border:none;width:100%;background:var(--bg);color:var(--tim-blue);font-weight:700;padding:1rem 1.2rem;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;border-radius:10px;box-shadow:0 6px 24px -6px rgba(255,255,255,.35);transition:.28s;}
+    .submit-btn:hover{background:var(--bg-hover);}
+    .submit-btn:active{transform:translateY(1px);}    
+    .legal{font-size:.55rem;line-height:1.35;opacity:.75;margin:.95rem 0 0;}
+
+    /* Status toast */
+    .toast{position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%) translateY(30px);background:linear-gradient(135deg,#04324f,#0a4b59);color:#fff;padding:.85rem 1.1rem;border-radius:14px;font-size:.75rem;letter-spacing:.05em;font-weight:500;display:flex;align-items:center;gap:.65rem;box-shadow:0 6px 32px -10px rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:.45s cubic-bezier(.4,.2,.2,1);}    
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}    
+
+    footer{background:#04162d;color:#98a2b3;font-size:.7rem;padding:2.2rem 1.25rem 3rem;margin-top:3rem;}
+    .footer-inner{max-width:1320px;margin:0 auto;display:grid;gap:1.5rem;}
+    .footer-brand{font-weight:600;color:#fff;letter-spacing:.5px;display:flex;align-items:center;gap:.5rem;}
+    .footer-brand span{font-size:.7rem;font-weight:500;color:var(--gray-200);}    
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}    
+  .poc-note{margin:-1.2rem 0 1.6rem;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--gray-300);background:rgba(255,255,255,.06);padding:.55rem .75rem;border:1px solid rgba(255,255,255,.1);border-radius:8px;display:inline-flex;gap:.5rem;align-items:center;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="brand">TIM <span class="brand-dot" aria-hidden="true"></span></div>
+      <nav aria-label="Primária">
+        <a href="index.html">Início</a>
+        <a href="#" onclick="event.preventDefault();document.getElementById('dados').scrollIntoView({behavior:'smooth'});">Dados</a>
+        <a href="#" onclick="event.preventDefault();document.getElementById('endereco').scrollIntoView({behavior:'smooth'});">Endereço</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> › <span>Formulário</span>
+    </div>
+
+  <h1 class="page-title">Concluir migração do plano</h1>
+
+    <div class="layout-grid">
+      <!-- LEFT: Selected Plan -->
+      <aside class="panel" aria-labelledby="tit-plano">
+        <h2 id="tit-plano" class="section-title">Plano escolhido</h2>
+        <div class="plan-card" id="planCard">
+          <div class="plan-capacity"><span id="planGB">23GB</span> <small>Internet</small></div>
+          <ul class="plan-benefits" id="planBenefits">
+            <li><strong>3GB</strong> + <strong>20GB</strong> de bônus por 12 meses</li>
+            <li>Apps ilimitados principais</li>
+            <li>Ligações ilimitadas para qualquer operadora</li>
+          </ul>
+          <div class="divider"></div>
+          <div style="display:flex;align-items:flex-end;gap:.8rem;">
+            <div class="plan-price">R$ 30<span style="font-size:1rem;">,99</span><span style="font-size:.7rem;font-weight:600;letter-spacing:0;">/mês</span></div>
+            <div class="details"><span>*Valor válido por 12 meses</span><span> sem permanência mínima</span></div>
+          </div>
+          <button type="button" class="change-plan" onclick="alterarPlano()">Alterar plano</button>
+        </div>
+      </aside>
+
+      <!-- MIDDLE: Form -->
+      <section class="panel" aria-labelledby="tit-dados">
+        <h2 id="tit-dados" class="section-title">Seus dados</h2>
+        <form id="formMigracao" onsubmit="event.preventDefault(); enviar();" novalidate>
+          <fieldset id="dados">
+            <legend class="sr-only">Dados pessoais</legend>
+            <div class="fields-grid">
+              <div class="field" style="grid-column:1/-1;">
+                <label for="nome">Nome completo</label>
+                <input id="nome" name="nome" placeholder="Seu nome" />
+              </div>
+              <div class="field">
+                <label for="cpf">CPF</label>
+                <input id="cpf" name="cpf" placeholder="000.000.000-00" inputmode="numeric" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" />
+              </div>
+              <div class="field">
+                <label for="nascimento">Data de Nascimento</label>
+                <input id="nascimento" name="nascimento" type="date" />
+              </div>
+              <div class="field" style="grid-column:1/-1;">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="voce@exemplo.com" />
+              </div>
+              <div class="field" style="grid-column:1/-1;">
+                <label for="nomeMae">Nome da mãe</label>
+                <input id="nomeMae" name="nomeMae" placeholder="Nome completo da mãe" />
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="subsection-title" id="tit-endereco">Seu endereço</div>
+          <fieldset id="endereco">
+            <legend class="sr-only">Endereço</legend>
+            <div class="fields-grid">
+              <div class="field">
+                <label for="cep">CEP</label>
+                <input id="cep" name="cep" placeholder="00000-000" pattern="\d{5}-?\d{3}" />
+              </div>
+              <div class="field" style="grid-column:span 2;min-width:240px;">
+                <label for="logradouro">Rua, Avenida, Travessa...</label>
+                <input id="logradouro" name="logradouro" placeholder="Rua / Avenida" />
+              </div>
+              <div class="field">
+                <label for="numero">Número</label>
+                <input id="numero" name="numero" placeholder="Nº" />
+              </div>
+              <div class="field">
+                <label for="complemento">Complemento</label>
+                <input id="complemento" name="complemento" placeholder="Apto / Bloco" />
+              </div>
+              <div class="field">
+                <label for="bairro">Bairro</label>
+                <input id="bairro" name="bairro" placeholder="Bairro" />
+              </div>
+              <div class="field">
+                <label for="cidade">Cidade</label>
+                <input id="cidade" name="cidade" placeholder="Cidade" />
+              </div>
+              <div class="field">
+                <label for="estado">Estado</label>
+                <input id="estado" name="estado" placeholder="UF" maxlength="2" style="text-transform:uppercase" />
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- RIGHT: Due date selection -->
+      <div class="panel column-right" aria-labelledby="tit-vencimento">
+        <h2 id="tit-vencimento" class="section-title">Escolha o vencimento</h2>
+        <div class="due-options" role="radiogroup" aria-label="Dia de vencimento" id="dueGroup">
+          <button type="button" class="due-btn" data-dia="1" role="radio" aria-checked="false">1</button>
+          <button type="button" class="due-btn" data-dia="7" role="radio" aria-checked="false">7</button>
+          <button type="button" class="due-btn" data-dia="10" role="radio" aria-checked="false">10</button>
+            <button type="button" class="due-btn" data-dia="12" role="radio" aria-checked="false">12</button>
+          <button type="button" class="due-btn" data-dia="15" role="radio" aria-checked="false">15</button>
+          <button type="button" class="due-btn" data-dia="20" data-best="true" role="radio" aria-checked="true">20</button>
+        </div>
+        <div class="tip-banner" id="tipBanner">
+          <span style="width:12px;height:12px;flex-shrink:0;background:linear-gradient(135deg,#1e6aff,#3db1ff);border-radius:4px;box-shadow:0 0 0 4px rgba(0,118,255,.25);"></span>
+          <div><strong style="color:#fff;">Escolhendo esta data</strong> você aproveita mais seus benefícios</div>
+        </div>
+        <button form="formMigracao" class="submit-btn" type="submit">CONTRATAR AGORA</button>
+        <p class="legal">Ao continuar você confirma ciência e concordância com a política de privacidade e tratamento dos dados. Interface demonstrativa.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">TIM <span>Interface demonstrativa</span></div>
+      <div>© <span id="year"></span> TIM - Conteúdo ilustrativo para prototipagem. Marcas e logotipos são propriedade de seus respectivos donos.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Mask helpers (mínimo simples sem libs)
+    function maskCPF(v){
+      return v.replace(/\D/g,'')
+              .replace(/(\d{3})(\d)/,'$1.$2')
+              .replace(/(\d{3})(\d)/,'$1.$2')
+              .replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+    }
+    function maskCEP(v){
+      return v.replace(/\D/g,'').replace(/(\d{5})(\d)/,'$1-$2');
+    }
+
+    const cpfEl = document.getElementById('cpf');
+    const cepEl = document.getElementById('cep');
+    cpfEl.addEventListener('input',e=>{e.target.value=maskCPF(e.target.value)});
+    cepEl.addEventListener('input',e=>{e.target.value=maskCEP(e.target.value)});
+
+    // Due date selection
+    const dueButtons = [...document.querySelectorAll('.due-btn')];
+    let selectedDue = '20';
+    function updateDue(btn){
+      dueButtons.forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-checked',b===btn?'true':'false');});
+      selectedDue = btn.dataset.dia;
+      const tip = document.getElementById('tipBanner');
+      if(btn.dataset.best==='true'){tip.style.display='flex';}
+      else{tip.style.display='none';}
+    }
+    dueButtons.forEach(btn=>btn.addEventListener('click',()=>updateDue(btn)));
+    updateDue(dueButtons.find(b=>b.dataset.dia==='20'));
+
+    function alterarPlano(){
+      alert('Fluxo de alteração de plano (demo)');
+    }
+
+    function toast(msg,type='info'){
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'toast show';
+      if(type==='success') el.style.background='linear-gradient(135deg,#036e3b,#05964f)';
+      if(type==='error') el.style.background='linear-gradient(135deg,#6e0314,#a80f25)';
+      setTimeout(()=>{el.classList.remove('show');},4200);
+    }
+
+    function validar(form){
+      // POC: sem validação obrigatória
+      return true;
+    }
+
+    function enviar(){
+      const form = document.getElementById('formMigracao');
+      if(!validar(form)) return;
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.vencimento = selectedDue;
+      console.log('Envio (demo)', data);
+      // Redireciona para página de agradecimento com parâmetros principais
+      const params = new URLSearchParams({
+        plano: 'TIM Controle',
+        gb: document.getElementById('planGB').textContent.replace(/\s+/g,'').toUpperCase(),
+        preco: '30,99',
+        venc: data.vencimento
+      });
+      window.location.href = 'thanks.html?' + params.toString();
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
